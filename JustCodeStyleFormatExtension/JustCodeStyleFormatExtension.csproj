@@ -84,27 +84,27 @@
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="System" />
     <Reference Include="Telerik.JustCode.CommonLanguageModel">
-      <HintPath>..\..\Program Files\Telerik\JustCode\Libraries\Telerik.JustCode.CommonLanguageModel.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Telerik\JustCode\Libraries\Telerik.JustCode.CommonLanguageModel.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Telerik.JustCode.CommonLanguageModel.Data">
-      <HintPath>..\..\Program Files\Telerik\JustCode\Libraries\Telerik.JustCode.CommonLanguageModel.Data.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Telerik\JustCode\Libraries\Telerik.JustCode.CommonLanguageModel.Data.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Telerik.JustCode.CommonLanguageModel.UI">
-      <HintPath>..\..\Program Files\Telerik\JustCode\Libraries\Telerik.JustCode.CommonLanguageModel.UI.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Telerik\JustCode\Libraries\Telerik.JustCode.CommonLanguageModel.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.ComponentModel.Composition">
-      <HintPath>..\..\Program Files\Telerik\JustCode\Libraries\Extensions\System.ComponentModel.Composition.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Telerik\JustCode\Libraries\Extensions\System.ComponentModel.Composition.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Telerik.JustCode.Settings">
-      <HintPath>..\..\Program Files\Telerik\JustCode\Libraries\Telerik.JustCode.Settings.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Telerik\JustCode\Libraries\Telerik.JustCode.Settings.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Telerik.JustCode.CommonLanguageModel.Extensions">
-      <HintPath>..\..\Program Files\Telerik\JustCode\Libraries\Telerik.JustCode.CommonLanguageModel.Extensions.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Telerik\JustCode\Libraries\Telerik.JustCode.CommonLanguageModel.Extensions.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
