@@ -47,7 +47,7 @@ namespace JustCodeStyleFormatExtension.Warning.Spacing
 
         private void CheckForMultiLineComments(string lineCheck, IComment comment)
         {
-            var result = this.whiteSpaceHelper.NeedWarningWhiteSpaceSingleSpace(lineCheck, "/*");
+            var result = this.whiteSpaceHelper.NeedWarningForSingleWhiteSpaceAfterKeyword(lineCheck, "/*");
 
             if (result == true)
             {
@@ -57,7 +57,7 @@ namespace JustCodeStyleFormatExtension.Warning.Spacing
 
         private void CheckForSingleComments(string lineCheck, IComment comment)
         {
-            var result = this.whiteSpaceHelper.NeedWarningWhiteSpaceSingleSpace(lineCheck, "//");
+            var result = this.whiteSpaceHelper.NeedWarningForSingleWhiteSpaceAfterKeyword(lineCheck, "//");
 
             if(result == true)
             {
