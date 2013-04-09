@@ -11,7 +11,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>JustCodeStyleFormatExtension</RootNamespace>
     <AssemblyName>JustCodeStyleFormatExtension</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
     <IncludeDebugSymbolsInVSIXContainer>false</IncludeDebugSymbolsInVSIXContainer>
@@ -58,8 +58,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Extensions\MultipleIndexes.cs" />
+    <Compile Include="Extensions\IndexExtensions.cs" />
     <Compile Include="FindUsagesExample.cs" />
+    <Compile Include="Helpers\Interface\ISpacingHelper.cs" />
     <Compile Include="Helpers\VarableListHelper.cs" />
     <Compile Include="Helpers\WhiteSpaceHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,7 +68,8 @@
     <Compile Include="Refactoring\Ordering\MoveUsingDirectives.cs" />
     <Compile Include="WarningExample.cs" />
     <Compile Include="Warning\Ordering\SA1200UsingDirectives.cs" />
-    <Compile Include="Warning\Spacing\SA1000KeyWordSpacing.cs" />
+    <Compile Include="Warning\Spacing\SA1000\SA1000KeyWordSpacing.cs" />
+    <Compile Include="Warning\Spacing\SA1000\SA1000KeyWordSpacingForAndForEach.cs" />
     <Compile Include="Warning\Spacing\SA1001CommaSpacing.cs" />
     <Compile Include="Warning\Spacing\SA1005SingleLineCommentsMustBeginWithSingleSpace.cs" />
   </ItemGroup>

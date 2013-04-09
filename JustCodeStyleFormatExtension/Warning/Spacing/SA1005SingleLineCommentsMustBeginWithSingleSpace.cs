@@ -47,7 +47,8 @@ namespace JustCodeStyleFormatExtension.Warning.Spacing
 
         private void CheckForMultiLineComments(string lineCheck, IComment comment)
         {
-            var result = this.whiteSpaceHelper.NeedWarningForSingleWhiteSpaceAfterKeyword(lineCheck, "/*");
+            var result = whiteSpaceHelper.CheckWhiteSpaceAroundKeyword(lineCheck, "/*");
+            // var result = this.whiteSpaceHelper.NeedWarningForSingleWhiteSpaceAfterKeyword(lineCheck, "/*");
 
             if (result == true)
             {
@@ -57,7 +58,8 @@ namespace JustCodeStyleFormatExtension.Warning.Spacing
 
         private void CheckForSingleComments(string lineCheck, IComment comment)
         {
-            var result = this.whiteSpaceHelper.NeedWarningForSingleWhiteSpaceAfterKeyword(lineCheck, "//");
+            var result = whiteSpaceHelper.CheckWhiteSpaceAroundKeyword(lineCheck, "//");
+            // var result = this.whiteSpaceHelper.NeedWarningForSingleWhiteSpaceAfterKeyword(lineCheck, "//");
 
             if(result == true)
             {
@@ -91,12 +93,12 @@ namespace JustCodeStyleFormatExtension.Warning.Spacing
 
         private void AddSpaceAfterSingleComment(IComment comment)
         {
-            comment.Text = this.whiteSpaceHelper.RemoveAddSingleWhiteSpaceAfterKeyword(comment.Text, "//");
+            comment.Text = this.whiteSpaceHelper.RemoveWhiteSpaceAroundKeyword(comment.Text, "//");
         }
 
         private void AddSpaceAfterMultiComments(IComment comment)
         {
-            comment.Text = this.whiteSpaceHelper.RemoveAddSingleWhiteSpaceAfterKeyword(comment.Text, "/*");
+            comment.Text = this.whiteSpaceHelper.RemoveWhiteSpaceAroundKeyword(comment.Text, "/*");
         }
     }
 }
