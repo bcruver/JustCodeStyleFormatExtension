@@ -63,6 +63,8 @@
     <Compile Include="Helpers\Interface\ISpacingHelper.cs" />
     <Compile Include="Helpers\VarableListHelper.cs" />
     <Compile Include="Helpers\WhiteSpaceHelper.cs" />
+    <Compile Include="Helpers\WhiteSpaceKeyWordCleanerHelper.cs" />
+    <Compile Include="Helpers\WhiteSpaceKeyWordWarningHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RefactoringExample.cs" />
     <Compile Include="Refactoring\Ordering\MoveUsingDirectives.cs" />

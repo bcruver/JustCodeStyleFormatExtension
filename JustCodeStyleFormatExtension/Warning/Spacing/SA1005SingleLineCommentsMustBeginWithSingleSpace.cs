@@ -31,7 +31,7 @@ namespace JustCodeStyleFormatExtension.Warning.Spacing
         {
             // you can use fileModel.All<T> to iterate over the construct you are interested in
             // you might also use LINQ queries
-            foreach (IComment comment in fileModel.All<IComment>())
+            foreach (IComment comment in fileModel.All<IComment>().Where(v => v.ExistsTextuallyInFile))
             {
                 var lineCheck = comment.Text.Trim();
 
@@ -47,7 +47,7 @@ namespace JustCodeStyleFormatExtension.Warning.Spacing
 
         private void CheckForMultiLineComments(string lineCheck, IComment comment)
         {
-            var result = whiteSpaceHelper.CheckWhiteSpaceAroundKeyword(lineCheck, "/*");
+            var result = whiteSpaceHelper.CheckWhiteSpaceAroundComment(lineCheck, "/*");
             // var result = this.whiteSpaceHelper.NeedWarningForSingleWhiteSpaceAfterKeyword(lineCheck, "/*");
 
             if (result == true)
@@ -58,7 +58,7 @@ namespace JustCodeStyleFormatExtension.Warning.Spacing
 
         private void CheckForSingleComments(string lineCheck, IComment comment)
         {
-            var result = whiteSpaceHelper.CheckWhiteSpaceAroundKeyword(lineCheck, "//");
+            var result = whiteSpaceHelper.CheckWhiteSpaceAroundComment(lineCheck, "//");
             // var result = this.whiteSpaceHelper.NeedWarningForSingleWhiteSpaceAfterKeyword(lineCheck, "//");
 
             if(result == true)
