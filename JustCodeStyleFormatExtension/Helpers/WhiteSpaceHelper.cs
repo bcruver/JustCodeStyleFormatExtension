@@ -4,39 +4,52 @@
     using System.Linq;
     using JustCodeStyleFormatExtension.Helpers.Interface;
 
-    public class WhiteSpaceHelper : ISpacingHelper
+    public class WhiteSpaceHelper : WhiteSpaceKeyWordCleanerHelper, ISpacingHelper
     {
-        private readonly WhiteSpaceKeyWordWarningHelper keywordWarning = new WhiteSpaceKeyWordWarningHelper();
-        private readonly WhiteSpaceKeyWordCleanerHelper keywordCleaner = new WhiteSpaceKeyWordCleanerHelper();
-
-        public bool CheckWhiteSpaceAroundKeyword(string s, string keywordCheck)
+        public bool CheckWhiteSpaceAroundKeyword(string s, string itemCheck)
         {
-            var warningCheck = keywordWarning.NeedWarningWhiteSpaceBeforeKeyword(s, keywordCheck);
+            var warningCheck = NeedWarningWhiteSpaceBeforeKeyword(s, itemCheck);
             if (warningCheck != true)
             {
-                warningCheck = keywordWarning.NeedWarningForSingleWhiteSpaceAfterKeyword(s, keywordCheck);
+                warningCheck = NeedWarningForSingleWhiteSpaceAfterKeyword(s, itemCheck);
             }
 
             return warningCheck;
         }
 
-        public string RemoveWhiteSpaceAroundKeyword(string s, string keywordCheck)
+        public bool CheckWhiteSpaceAroundComment(string s, string itemCheck)
+        {
+            var warningCheck = NeedWarningWhiteSpaceBeforeComment(s, itemCheck);
+            if (warningCheck != true)
+            {
+               warningCheck = NeedWarningForSingleWhiteSpaceAfterComment(s, itemCheck);
+            }
+
+            return warningCheck;
+        }
+
+        public string RemoveWhiteSpaceAroundKeyword(string s, string itemCheck)
         {
             string returnString = s;
-            returnString = keywordCleaner.RemoveAllDoubleSpacesOnString(s);
-            var warningCheck = keywordWarning.NeedWarningWhiteSpaceBeforeKeyword(returnString, keywordCheck);
+            returnString = RemoveAllDoubleSpacesOnString(s);
+            var warningCheck = NeedWarningWhiteSpaceBeforeKeyword(returnString, itemCheck);
             if (warningCheck == true)
             {
-                returnString = keywordCleaner.RemoveAddExtraWhiteSpaceBeforeKeyword(returnString, keywordCheck);
+                returnString = RemoveAddExtraWhiteSpaceBeforeKeyword(returnString, itemCheck);
             }
 
-            warningCheck = keywordWarning.NeedWarningForSingleWhiteSpaceAfterKeyword(returnString, keywordCheck);
+            warningCheck = NeedWarningForSingleWhiteSpaceAfterKeyword(returnString, itemCheck);
 
             if (warningCheck == true)
             {
-                returnString = keywordCleaner.RemoveAddSingleWhiteSpaceAfterKeyword(s, keywordCheck);
+                returnString = RemoveAddSingleWhiteSpaceAfterKeyword(s, itemCheck);
             }
             return returnString;
+        }
+
+        public string RemoveWhiteSpaceAroundComment(string s, string itemCheck)
+        {
+            throw new NotImplementedException();
         }
     }
 }

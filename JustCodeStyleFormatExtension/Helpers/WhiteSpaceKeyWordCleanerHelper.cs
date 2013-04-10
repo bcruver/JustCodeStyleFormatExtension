@@ -5,22 +5,22 @@
     using System.Text.RegularExpressions;
     using JustCodeStyleFormatExtension.Extensions;
 
-    public class WhiteSpaceKeyWordCleanerHelper
+    public class WhiteSpaceKeyWordCleanerHelper : WhiteSpaceKeyWordWarningHelper
     {
-        private readonly WhiteSpaceKeyWordWarningHelper keywordWarning = new WhiteSpaceKeyWordWarningHelper();
+       // private readonly WhiteSpaceKeyWordWarningHelper keywordWarning = new WhiteSpaceKeyWordWarningHelper();
 
-        public string RemoveAddExtraWhiteSpaceBeforeKeyword(string s, string keywordCheck)
+        internal string RemoveAddExtraWhiteSpaceBeforeKeyword(string s, string keywordCheck)
         {
             string returnString = s;
            
             returnString = AddSingleWhiteSpaceBeforeKeyword(keywordCheck, returnString);
             return returnString;
-        }        
+        }
 
-        public string RemoveAddSingleWhiteSpaceAfterKeyword(string s, string keywordCheck)
+        internal string RemoveAddSingleWhiteSpaceAfterKeyword(string s, string keywordCheck)
         {
             string returnString = s;
-            var warningCheck = keywordWarning.NeedWarningForSingleWhiteSpaceAfterKeyword(returnString, keywordCheck);
+            var warningCheck = NeedWarningForSingleWhiteSpaceAfterKeyword(returnString, keywordCheck);
             if (warningCheck == true)
             {
                 returnString = this.AddSingleWhiteSpaceAfterKeyword(keywordCheck, returnString);
@@ -53,6 +53,9 @@
             }
             return returnString;
         }
+
+
+
 
         public string RemoveAllDoubleSpacesOnString(string s)
         {

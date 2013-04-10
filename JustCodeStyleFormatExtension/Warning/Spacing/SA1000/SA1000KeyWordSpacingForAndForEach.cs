@@ -129,7 +129,7 @@
 
         private void FixSpacingAroundKeywordForeach(IForEachStatement item)
         {
-            List<string> keywordSearch = new List<string> { "for", "foreach", "in" };
+            List<string> keywordSearch = new List<string> { "foreach", "in" };
             foreach (var key in keywordSearch)
             {
                 item.Text = this.whiteSpaceHelper.RemoveWhiteSpaceAroundKeyword(item.Text, key);
@@ -138,7 +138,7 @@
 
         private void FixSpacingAroundKeywordFor(IForStatement item)
         {
-            List<string> keywordSearch = new List<string> { "for", "foreach", "in" };
+            List<string> keywordSearch = new List<string> { "for" };
             foreach (var key in keywordSearch)
             {
                 item.Text = this.whiteSpaceHelper.RemoveWhiteSpaceAroundKeyword(item.Text, key);

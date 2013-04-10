@@ -60,7 +60,6 @@
   <ItemGroup>
     <Compile Include="Extensions\IndexExtensions.cs" />
     <Compile Include="FindUsagesExample.cs" />
-    <Compile Include="Helpers\CommentWhiteSpaceHelper.cs" />
     <Compile Include="Helpers\Interface\ISpacingHelper.cs" />
     <Compile Include="Helpers\VarableListHelper.cs" />
     <Compile Include="Helpers\WhiteSpaceHelper.cs" />
