@@ -1,26 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using JustCodeStyleFormatExtension.Helpers;
-using Telerik.JustCode.CommonLanguageModel;
-
-namespace JustCodeStyleFormatExtension.Warning.Spacing
+﻿namespace JustCodeStyleFormatExtension.Langugage.Csharp.Warning.Spacing.SA1005
 {
     /// <summary> 
     /// 
     /// Following style cop enforced rule SA1005: SingleLineCommentsMustBeginWithSingleSpace
     /// 
     /// </summary>
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.Composition;
+    using JustCodeStyleFormatExtension.Helpers;
+    using Telerik.JustCode.CommonLanguageModel;
+
     [Export(typeof(IEngineModule))]
     [Export(typeof(ICodeMarkerGroupDefinition))]
     public class SA1005SingleLineCommentsMustBeginWithSingleSpace : CodeMarkerProviderModuleBase
     {
         private readonly WhiteSpaceHelper whiteSpaceHelper = new WhiteSpaceHelper();
 
-        private const string WarningId = "SA1005";
-        private const string MarkerText = "SA1005: Comments Must Begin With Single Space";
-        private const string Description = "A single-line comment within a C# code file does not begin with a single space.";
-        private const string FixText = "SA1005: Comments Must Begin With Single Space";
+        private const string WarningId = "SA1005-1-Csharp";
+        private const string MarkerText = "C# - Comments that start with /* should begin with a single space";
+        private const string Description = "C# - Comments that start with /* should begin with a single space";
+        private const string FixText = "C# - Comments that start with /* should begin with a single space";
+
+        private const string WarningId2 = "SA1005-2-Csharp";
+        private const string MarkerText2 = "C# - Comments that start with // should begin with a single space";
+        private const string Description2 = "C# - Comments that start with // should begin with a single space.";
+        private const string FixText2 = "C# - Comments that start with // should begin with a single space";
 
         /// <summary>
         /// This method is responsible for analyzing a single file and producing warning code markers.
@@ -29,16 +34,17 @@ namespace JustCodeStyleFormatExtension.Warning.Spacing
         /// </summary>
         protected override void AddCodeMarkers(FileModel fileModel)
         {
-            // you can use fileModel.All<T> to iterate over the construct you are interested in
+            // you can use fileModel.All<T> to iterate over the construct you are in terested in
             // you might also use LINQ queries
             foreach (IComment comment in fileModel.All<IComment>().Where(v => v.ExistsTextuallyInFile))
             {
                 var lineCheck = comment.Text.Trim();
 
-                if(lineCheck.IndexOf("/*") != -1)
+                if (lineCheck.IndexOf("/*") != -1)
                 {
                     CheckForMultiLineComments(lineCheck, comment);
-                }else
+                }
+                else
                 {
                     CheckForSingleComments(lineCheck, comment);
                 }
@@ -48,7 +54,6 @@ namespace JustCodeStyleFormatExtension.Warning.Spacing
         private void CheckForMultiLineComments(string lineCheck, IComment comment)
         {
             var result = whiteSpaceHelper.CheckWhiteSpaceAroundComment(lineCheck, "/*");
-            // var result = this.whiteSpaceHelper.NeedWarningForSingleWhiteSpaceAfterKeyword(lineCheck, "/*");
 
             if (result == true)
             {
@@ -63,11 +68,9 @@ namespace JustCodeStyleFormatExtension.Warning.Spacing
 
             if(result == true)
             {
-                comment.AddCodeMarker(WarningId, this, AddSpaceAfterSingleComment, comment);
+                comment.AddCodeMarker(WarningId2, this, AddSpaceAfterSingleComment, comment);
             }
         }
-
-
 
         /// <summary>
         /// This porperty statically defines the warning code marker: supported languages, description, 
@@ -77,7 +80,7 @@ namespace JustCodeStyleFormatExtension.Warning.Spacing
         {
             get
             {
-                foreach (var language in new[] { LanguageNames.CSharp })
+                foreach (var language in new[] { LanguageNames.CSharp, LanguageNames.JavaScript })
                 {
                     yield return CodeMarkerGroup.Define(
                         language,
@@ -87,6 +90,15 @@ namespace JustCodeStyleFormatExtension.Warning.Spacing
                         true,
                         MarkerText,
                         FixText);
+
+                    yield return CodeMarkerGroup.Define(
+                        language,
+                        WarningId2,
+                        CodeMarkerAppearance.Warning,
+                        Description2,
+                        true,
+                        MarkerText2,
+                        FixText2);
                 }
             }
         }

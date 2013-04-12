@@ -1,4 +1,4 @@
-﻿namespace JustCodeStyleFormatExtension.Warning.Spacing.SA1000
+﻿namespace JustCodeStyleFormatExtension.Langugage.Csharp.Warning.Spacing.SA1000
 {
     using System;
     using System.Collections.Generic;
