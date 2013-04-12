@@ -1,28 +1,46 @@
-﻿
-
-
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using Telerik.JustCode.CommonLanguageModel;
-
-namespace JustCodeStyleFormatExtension.Warning.Ordering
+﻿namespace JustCodeStyleFormatExtension.Langugage.Csharp.Warning.Ordering
 {
     /// <summary> 
     /// 
     /// Following style cop enforced rule SA1200 will warn about any using statement outside the namespace
     /// 
     /// </summary>
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.Composition;
+    using System.Linq;
+    using Telerik.JustCode.CommonLanguageModel;
+
     [Export(typeof(IEngineModule))]
     [Export(typeof(ICodeMarkerGroupDefinition))]
     public class SA1200UsingDirectives : CodeMarkerProviderModuleBase
     {
         private const string WarningId = "SA1200";
-        private const string MarkerText = "SA1200: Using Directives Must Be Placed Within Namespace";
-        private const string Description = "SA1200: Using directive is placed outside of a namespace element.";
-        private const string FixText = "SA1200: Using Directives Must Be Placed Within Namespace";
+        private const string MarkerText = "Using directives should be placed inside the namespace";
+        private const string Description = "Using directives should be placed inside the namespace";
+        private const string FixText = "Using directives should be placed inside the namespace";
+
+        /// <summary>
+        /// This porperty statically defines the warning code marker: supported languages, description, 
+        /// default fix text, default apperance and whether it's enabled by default.
+        /// </summary>
+        public override IEnumerable<CodeMarkerGroup> CodeMarkerGroups
+        {
+            get
+            {
+                foreach (var language in new[] { LanguageNames.CSharp })
+                {
+                    yield return CodeMarkerGroup.Define(
+                        language,
+                        WarningId,
+                        CodeMarkerAppearance.Warning,
+                        Description,
+                        true,
+                        MarkerText,
+                        FixText);
+                }
+            }
+        }
 
         /// <summary>
         /// This method is responsible for analyzing a single file and producing warning code markers.
@@ -49,29 +67,7 @@ namespace JustCodeStyleFormatExtension.Warning.Ordering
                     }
                 }
             }           
-        }
-
-        /// <summary>
-        /// This porperty statically defines the warning code marker: supported languages, description, 
-        /// default fix text, default apperance and whether it's enabled by default.
-        /// </summary>
-        public override IEnumerable<CodeMarkerGroup> CodeMarkerGroups
-        {
-            get
-            {
-                foreach (var language in new[] { LanguageNames.CSharp })
-                {
-                    yield return CodeMarkerGroup.Define(
-                        language,
-                        WarningId,
-                        CodeMarkerAppearance.Warning,
-                        Description,
-                        true,
-                        MarkerText,
-                        FixText);
-                }
-            }
-        }
+        }        
 
         private void MoveUsingStatements(FileModel fileModel)
         {

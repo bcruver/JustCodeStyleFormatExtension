@@ -57,42 +57,6 @@
             }
             return false;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
         private bool IsWarningNeededAfter(string s, IEnumerable<int> startIndexes, string keywordCheck)
         {
@@ -106,31 +70,34 @@
             {
                 if (startPoint < endPoint)
                 {
-                    for (int i = startPoint + keywordCheck.Length; i < endPoint; i++)
+                    if (IsKeywordInQuotes(s, keywordCheck, startPoint) == false)
                     {
-                        if (characterAfterKeyword == 0)
+                        for (int i = startPoint + keywordCheck.Length; i < endPoint; i++)
                         {
-                            if (!char.IsWhiteSpace(s[i]))
+                            if (characterAfterKeyword == 0)
                             {
-                                characterAfterKeyword++;
-                                nextCharacter = s[i];
+                                if (!char.IsWhiteSpace(s[i]))
+                                {
+                                    characterAfterKeyword++;
+                                    nextCharacter = s[i];
+                                }
+                                else
+                                {
+                                    whiteSpaceCount++;
+                                    if (whiteSpaceCount > 1)
+                                    {
+                                        return true;
+                                    }
+                                }
                             }
                             else
                             {
-                                whiteSpaceCount++;
-                                if (whiteSpaceCount > 1)
+                                if (keywordCheck + nextCharacter.ToString() == exception)
                                 {
-                                    return true;
+                                    return false;
                                 }
+                                return (whiteSpaceCount == 1) ? false : true;
                             }
-                        }
-                        else
-                        {
-                            if (keywordCheck + nextCharacter.ToString() == exception)
-                            {
-                                return false;
-                            }
-                            return (whiteSpaceCount == 1) ? false : true;
                         }
                     }
                 }
@@ -144,11 +111,7 @@
             if(isAtBeginningOfRow == false)
             {
                 var startIndexes = s.IndexesOf(commentType);
-                bool returnValue;
-                if (IsWarningNeededBefore(startIndexes, s, out returnValue))
-                {
-                    return returnValue;
-                }
+                return IsWarningNeededBefore(startIndexes, s, commentType);
             }
 
             // not warning needed because it is at the beginning of the row
@@ -161,19 +124,31 @@
             if (isAtBeginningOfRow == false)
             {
                 var startIndexes = s.WholeWordIndexesOf(keywordCheck);
-                bool returnValue;
-                if (IsWarningNeededBefore(startIndexes, s, out returnValue))
-                {
-                    return returnValue;
-                }
+                return IsWarningNeededBefore(startIndexes, s, keywordCheck);
             }
             // not warning needed because it is at the beginning of the row
             return false;
         }
-  
-        private bool IsWarningNeededBefore(IEnumerable<int> startIndexes, string s, out bool returnValue)
+
+        // Exception check when keywords are in quotes like "for"
+        private bool IsKeywordInQuotes(string s, string keywordCheck, int startPoint)
         {
-            returnValue = false;
+            if (s.Substring(startPoint - 1, startPoint) == "\"")
+            {
+                return true;
+            }
+
+            if (s.Substring(startPoint, (startPoint + keywordCheck.Length + 1)) == "\"")
+            {
+                return true;
+            }
+
+            return false;
+        }
+  
+        private bool IsWarningNeededBefore(IEnumerable<int> startIndexes, string s, string keywordCheck)
+        {
+            var returnValue = false;
             var whiteSpaceCount = 0;
             char characterAfterKeyword = new char();
 
@@ -181,52 +156,55 @@
             {
                 if (startPoint > 0)
                 {
-                    for (int i = startPoint - 1; i > 0; i--)
+                    if (IsKeywordInQuotes(s, keywordCheck, startPoint) == false)
                     {
-                        if (characterAfterKeyword == '\0')
+                        for (int i = startPoint - 1; i > 0; i--)
                         {
-                            if (!char.IsWhiteSpace(s[i]))
+                            if (characterAfterKeyword == '\0')
                             {
-                                characterAfterKeyword = s[i];
+                                if (!char.IsWhiteSpace(s[i]))
+                                {
+                                    characterAfterKeyword = s[i];
+                                }
+                                else
+                                {
+                                    if (s[i] != '\t' && s[i] != '\n' && s[i] != '\r')
+                                    {
+                                        whiteSpaceCount++;
+                                    }
+
+                                    if (whiteSpaceCount > 1)
+                                    {
+                                        returnValue = true;
+                                        return true;
+                                    }
+
+                                    if ((s[i] == '\n' || s[i] == '\r') && whiteSpaceCount < 2)
+                                    {
+                                        returnValue = false;
+                                        return true;
+                                    }
+                                }
                             }
                             else
                             {
-                                if (s[i] != '\t' && s[i] != '\n' && s[i] != '\r')
-                                {
-                                    whiteSpaceCount++;
-                                }
-
-                                if (whiteSpaceCount > 1)
-                                {
-                                    returnValue = true;
-                                    return true;
-                                }
-
-                                if ((s[i] == '\n' || s[i] == '\r') && whiteSpaceCount < 2)
-                                {
-                                    returnValue = false;
-                                    return true;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (whiteSpaceCount == 1)
-                            {
-                                returnValue = false;
-                                return true;
-                            }
-                            else
-                            {
-                                if (characterAfterKeyword == '\n')
+                                if (whiteSpaceCount == 1)
                                 {
                                     returnValue = false;
                                     return true;
                                 }
                                 else
                                 {
-                                    returnValue = true;
-                                    return true;
+                                    if (characterAfterKeyword == '\n')
+                                    {
+                                        returnValue = false;
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        returnValue = true;
+                                        return true;
+                                    }
                                 }
                             }
                         }
