@@ -10,25 +10,25 @@
 
     /// <summary> 
     /// 
-    /// Following style cop enforced rule SA1000: Spacing around keywords for, foreach, in
+    /// Following style cop enforced rule SA1000: Spacing around keywords in
     /// 
     /// </summary>
     [Export(typeof(IEngineModule))]
     [Export(typeof(ICodeMarkerGroupDefinition))]
-    public class SA1000KeyWordSpacingForAndForEach : CodeMarkerProviderModuleBase
+    public class KeyWordSpacingIn : CodeMarkerProviderModuleBase
     {
         private readonly WhiteSpaceHelper whiteSpaceHelper = new WhiteSpaceHelper();
 
-        private const string WarningId = "SA1000A";
-        private const string MarkerText = "SA1000: Keywords must be spaced correctly";
-        private const string Description = "SA1000: Keywords must be spaced correctly";
-        private const string FixText = "SA1000: Keywords must be spaced correctly";
+        private const string WarningId = "SA1000A-CSharp-In";
+        private const string MarkerText = "CSharp - Spacing around keyword \"In\" should be spaced correctly";
+        private const string Description = "CSharp - Spacing around keyword \"In\" should be spaced correctly";
+        private const string FixText = "CSharp - Spacing around keyword \"In\" should be spaced correctly";
 
         public override IEnumerable<CodeMarkerGroup> CodeMarkerGroups
         {
             get
             {
-                foreach (var language in new[] { LanguageNames.CSharp, LanguageNames.VisualBasic, LanguageNames.JavaScript })
+                foreach (var language in new[] { LanguageNames.CSharp })
                 {
                     yield return CodeMarkerGroup.Define(
                         language,
@@ -48,7 +48,7 @@
 
             foreach (IForEachStatement item in fileModel.All<IForEachStatement>().Where(v => v.ExistsTextuallyInFile))
             {
-                List<string> keywordSearch = new List<string> { "for", "foreach", "in" };
+                List<string> keywordSearch = new List<string> { "in" };
                 foreach (var key in keywordSearch)
                 {
                     if (item.Text.WholeWordIndexOf(key) != -1)
@@ -65,7 +65,7 @@
 
             foreach (IForStatement item in fileModel.All<IForStatement>().Where(v => v.ExistsTextuallyInFile))
             {
-                List<string> keywordSearch = new List<string> { "for", "foreach", "in" };
+                List<string> keywordSearch = new List<string> { "in" };
 
                 foreach (var key in keywordSearch)
                 {
@@ -79,57 +79,12 @@
                         }
                     }
                 }
-            }
-
-            foreach (ISwitchStatement item in fileModel.All<ISwitchStatement>().Where(v => v.ExistsTextuallyInFile))
-            {
-                List<string> keywordSearch = new List<string> { "switch" };
-
-                foreach (var key in keywordSearch)
-                {
-                    if (item.Text.WholeWordIndexOf(key) != -1)
-                    {
-                        needWarning = this.CheckSpacingAroundKeyword(key, item.Text);
-                        if (needWarning == true)
-                        {
-                            item.AddCodeMarker(WarningId, this, FixSpacingAroundKeywordSwitch, item);
-                            break;
-                        }
-                    }
-                }
-            }
-
-            foreach (ITryStatement item in fileModel.All<ITryStatement>().Where(v => v.ExistsTextuallyInFile))
-            {
-                List<string> keywordSearch = new List<string> { "catch" };
-
-                foreach (var key in keywordSearch)
-                {
-                    if (item.Text.WholeWordIndexOf(key) != -1)
-                    {
-                        needWarning = this.CheckSpacingAroundKeyword(key, item.Text);
-                        if (needWarning == true)
-                        {
-                            item.AddCodeMarker(WarningId, this, FixSpacingAroundKeywordTry, item);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        private void FixSpacingAroundKeywordTry(ITryStatement item)
-        {
-            List<string> keywordSearch = new List<string> { "catch" };
-            foreach (var key in keywordSearch)
-            {
-                item.Text = this.whiteSpaceHelper.RemoveWhiteSpaceAroundKeyword(item.Text, key);
-            }
-        }        
+            }           
+        }     
 
         private void FixSpacingAroundKeywordForeach(IForEachStatement item)
         {
-            List<string> keywordSearch = new List<string> { "foreach", "in" };
+            List<string> keywordSearch = new List<string> { "in" };
             foreach (var key in keywordSearch)
             {
                 item.Text = this.whiteSpaceHelper.RemoveWhiteSpaceAroundKeyword(item.Text, key);
@@ -138,16 +93,7 @@
 
         private void FixSpacingAroundKeywordFor(IForStatement item)
         {
-            List<string> keywordSearch = new List<string> { "for" };
-            foreach (var key in keywordSearch)
-            {
-                item.Text = this.whiteSpaceHelper.RemoveWhiteSpaceAroundKeyword(item.Text, key);
-            }
-        }
-
-        private void FixSpacingAroundKeywordSwitch(ISwitchStatement item)
-        {
-            List<string> keywordSearch = new List<string> { "switch" };
+            List<string> keywordSearch = new List<string> { "in" };
             foreach (var key in keywordSearch)
             {
                 item.Text = this.whiteSpaceHelper.RemoveWhiteSpaceAroundKeyword(item.Text, key);

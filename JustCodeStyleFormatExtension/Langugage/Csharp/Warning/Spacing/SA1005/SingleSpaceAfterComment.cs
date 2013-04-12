@@ -13,19 +13,19 @@
 
     [Export(typeof(IEngineModule))]
     [Export(typeof(ICodeMarkerGroupDefinition))]
-    public class SA1005SingleLineCommentsMustBeginWithSingleSpace : CodeMarkerProviderModuleBase
+    public class SingleSpaceAfterComment : CodeMarkerProviderModuleBase
     {
         private readonly WhiteSpaceHelper whiteSpaceHelper = new WhiteSpaceHelper();
 
         private const string WarningId = "SA1005-1-Csharp";
-        private const string MarkerText = "C# - Comments that start with /* should begin with a single space";
-        private const string Description = "C# - Comments that start with /* should begin with a single space";
-        private const string FixText = "C# - Comments that start with /* should begin with a single space";
+        private const string MarkerText = "CSharp - Comments that start with /* should begin with a single space";
+        private const string Description = "CSharp - Comments that start with /* should begin with a single space";
+        private const string FixText = "CSharp - Comments that start with /* should begin with a single space";
 
         private const string WarningId2 = "SA1005-2-Csharp";
-        private const string MarkerText2 = "C# - Comments that start with // should begin with a single space";
-        private const string Description2 = "C# - Comments that start with // should begin with a single space.";
-        private const string FixText2 = "C# - Comments that start with // should begin with a single space";
+        private const string MarkerText2 = "CSharp - Comments that start with // should begin with a single space";
+        private const string Description2 = "CSharp - Comments that start with // should begin with a single space.";
+        private const string FixText2 = "CSharp - Comments that start with // should begin with a single space";
 
         /// <summary>
         /// This method is responsible for analyzing a single file and producing warning code markers.
@@ -80,7 +80,7 @@
         {
             get
             {
-                foreach (var language in new[] { LanguageNames.CSharp, LanguageNames.JavaScript })
+                foreach (var language in new[] { LanguageNames.CSharp})
                 {
                     yield return CodeMarkerGroup.Define(
                         language,
