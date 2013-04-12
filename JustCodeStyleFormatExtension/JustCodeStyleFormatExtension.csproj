@@ -65,8 +65,25 @@
     <Compile Include="Helpers\WhiteSpaceHelper.cs" />
     <Compile Include="Helpers\WhiteSpaceKeyWordCleanerHelper.cs" />
     <Compile Include="Helpers\WhiteSpaceKeyWordWarningHelper.cs" />
-    <Compile Include="Langugage\JavaScript\Spacing\SA1005\SA1005SingleLineCommentsMustBeginWithSingleSpace.cs" />
-    <Compile Include="Langugage\VbNet\Spacing\SA1000\SA1000KeyWordSpacingForAndForEach.cs" />
+    <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\KeyWordSpacingCatch.cs" />
+    <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\KeyWordSpacingFor.cs" />
+    <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\KeyWordSpacingForeach.cs" />
+    <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\KeyWordSpacingIn.cs" />
+    <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\KeyWordSpacingNew.cs" />
+    <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\KeyWordSpacingSwitch.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingCatch.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingFor.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingForeach.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingIn.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingNew.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingSwitch.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1005\SingleSpaceAfterComment.cs" />
+    <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingNew.cs" />
+    <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingCatch.cs" />
+    <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingSwitch.cs" />
+    <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingIn.cs" />
+    <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingForeach.cs" />
+    <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingFor.cs" />
     <Compile Include="Langugage\VbNet\Spacing\SA1005\SingleSpaceAfterComment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RefactoringExample.cs" />
@@ -76,7 +93,7 @@
     <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\SA1000KeyWordSpacing.cs" />
     <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\SA1000KeyWordSpacingForAndForEach.cs" />
     <Compile Include="Langugage\Csharp\Warning\Spacing\SA1001CommaSpacing.cs" />
-    <Compile Include="Langugage\Csharp\Warning\Spacing\SA1005\SA1005SingleLineCommentsMustBeginWithSingleSpace.cs" />
+    <Compile Include="Langugage\Csharp\Warning\Spacing\SA1005\SingleSpaceAfterComment.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MS-PL.rtf">
