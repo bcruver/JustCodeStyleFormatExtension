@@ -13,7 +13,7 @@
 
     [Export(typeof(IEngineModule))]
     [Export(typeof(ICodeMarkerGroupDefinition))]
-    public class SA1005SingleLineCommentsMustBeginWithSingleSpace : CodeMarkerProviderModuleBase
+    public class SingleSpaceAfterComment : CodeMarkerProviderModuleBase
     {
         private readonly WhiteSpaceHelper whiteSpaceHelper = new WhiteSpaceHelper();
 

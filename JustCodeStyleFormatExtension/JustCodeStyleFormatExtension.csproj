@@ -65,7 +65,13 @@
     <Compile Include="Helpers\WhiteSpaceHelper.cs" />
     <Compile Include="Helpers\WhiteSpaceKeyWordCleanerHelper.cs" />
     <Compile Include="Helpers\WhiteSpaceKeyWordWarningHelper.cs" />
-    <Compile Include="Langugage\JavaScript\Spacing\SA1005\SA1005SingleLineCommentsMustBeginWithSingleSpace.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingCatch.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingFor.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingForeach.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingIn.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingNew.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingSwitch.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1005\SingleSpaceAfterComment.cs" />
     <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingNew.cs" />
     <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingCatch.cs" />
     <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingSwitch.cs" />
