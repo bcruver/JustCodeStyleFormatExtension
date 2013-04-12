@@ -1,32 +1,34 @@
-﻿namespace JustCodeStyleFormatExtension.Langugage.Csharp.Warning.Spacing.SA1000
+﻿namespace JustCodeStyleFormatExtension.Langugage.VbNet.Spacing.SA1000
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.Composition;
+    using System.Linq;
+    using JustCodeStyleFormatExtension.Extensions;
     using JustCodeStyleFormatExtension.Helpers;
     using Telerik.JustCode.CommonLanguageModel;
 
     /// <summary> 
     /// 
-    /// Following style cop enforced rule SA1000: Spacing around keywords
+    /// Following style cop enforced rule SA1000: Spacing around keywords in
     /// 
     /// </summary>
     [Export(typeof(IEngineModule))]
     [Export(typeof(ICodeMarkerGroupDefinition))]
-    public class KeyWordSpacingNew : CodeMarkerProviderModuleBase
+    public class KeyWordSpacingIn : CodeMarkerProviderModuleBase
     {
         private readonly WhiteSpaceHelper whiteSpaceHelper = new WhiteSpaceHelper();
 
-        private const string WarningId = "SA1000";
-        private const string MarkerText = "SA1000: Keywords must be spaced correctly";
-        private const string Description = "SA1000: Keywords must be spaced correctly";
-        private const string FixText = "SA1000: Keywords must be spaced correctly";
+        private const string WarningId = "SA1000A-VB-In";
+        private const string MarkerText = "VB - Spacing around keyword \"In\" should be spaced correctly";
+        private const string Description = "VB - Spacing around keyword \"In\" should be spaced correctly";
+        private const string FixText = "VB - Spacing around keyword \"In\" should be spaced correctly";
 
         public override IEnumerable<CodeMarkerGroup> CodeMarkerGroups
         {
             get
             {
-                foreach (var language in new[] { LanguageNames.CSharp, LanguageNames.VisualBasic, LanguageNames.JavaScript })
+                foreach (var language in new[] { LanguageNames.VisualBasic})
                 {
                     yield return CodeMarkerGroup.Define(
                         language,
@@ -43,53 +45,55 @@
         protected override void AddCodeMarkers(FileModel fileModel)
         {
             var needWarning = false;
-            // Grabs the first two rows of a list
-            foreach (IVariableDeclaration item in fileModel.All<IVariableDeclaration>().Where(v => v.ExistsTextuallyInFile))
+
+            foreach (IForEachStatement item in fileModel.All<IForEachStatement>().Where(v => v.ExistsTextuallyInFile))
             {
-                List<string> keywordSearch = new List<string> { "new" };
+                List<string> keywordSearch = new List<string> { "in" };
                 foreach (var key in keywordSearch)
                 {
-                    if (item.Text.Contains(key))
+                    if (item.Text.WholeWordIndexOf(key) != -1)
                     {
-                        needWarning = this.CheckSpacingAroundKeyword(key, item.Text.ToString());
+                        needWarning = this.CheckSpacingAroundKeyword(key, item.Text);
                         if (needWarning == true)
                         {
-                            item.AddCodeMarker(WarningId, this, FixSpacingAroundKeywordVarDec, item);
+                            item.AddCodeMarker(WarningId, this, FixSpacingAroundKeywordForeach, item);
+                            break;
                         }
                     }
                 }
             }
 
-            // Grabs everything else
-            foreach (IAssignmentExpression item in fileModel.All<IAssignmentExpression>().Where(v => v.ExistsTextuallyInFile))
+            foreach (IForStatement item in fileModel.All<IForStatement>().Where(v => v.ExistsTextuallyInFile))
             {
-                List<string> keywordSearch = new List<string> { "new" };
+                List<string> keywordSearch = new List<string> { "in" };
+
                 foreach (var key in keywordSearch)
                 {
-                    if (item.Text.Contains(key))
+                    if (item.Text.WholeWordIndexOf(key) != -1)
                     {
-                        needWarning = this.CheckSpacingAroundKeyword(key, item.Text.ToString());
+                        needWarning = this.CheckSpacingAroundKeyword(key, item.Text);
                         if (needWarning == true)
                         {
-                            item.AddCodeMarker(WarningId, this, FixSpacingAroundKeywordAsExp, item);
+                            item.AddCodeMarker(WarningId, this, FixSpacingAroundKeywordFor, item);
+                            break;
                         }
                     }
                 }
-            }          
-        }
+            }           
+        }     
 
-        private void FixSpacingAroundKeywordVarDec(IVariableDeclaration item)
+        private void FixSpacingAroundKeywordForeach(IForEachStatement item)
         {
-            List<string> keywordSearch = new List<string> { "new" };
+            List<string> keywordSearch = new List<string> { "in" };
             foreach (var key in keywordSearch)
             {
                 item.Text = this.whiteSpaceHelper.RemoveWhiteSpaceAroundKeyword(item.Text, key);
             }
         }
 
-        private void FixSpacingAroundKeywordAsExp(IAssignmentExpression item)
+        private void FixSpacingAroundKeywordFor(IForStatement item)
         {
-            List<string> keywordSearch = new List<string> { "new" };
+            List<string> keywordSearch = new List<string> { "in" };
             foreach (var key in keywordSearch)
             {
                 item.Text = this.whiteSpaceHelper.RemoveWhiteSpaceAroundKeyword(item.Text, key);

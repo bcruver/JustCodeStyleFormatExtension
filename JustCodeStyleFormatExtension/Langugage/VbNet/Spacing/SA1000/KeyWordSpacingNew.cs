@@ -1,4 +1,4 @@
-﻿namespace JustCodeStyleFormatExtension.Langugage.Csharp.Warning.Spacing.SA1000
+﻿namespace JustCodeStyleFormatExtension.Langugage.VbNet.Spacing.SA1000
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +8,7 @@
 
     /// <summary> 
     /// 
-    /// Following style cop enforced rule SA1000: Spacing around keywords
+    /// Following style cop enforced rule SA1000: Spacing around keywords New
     /// 
     /// </summary>
     [Export(typeof(IEngineModule))]
@@ -17,16 +17,16 @@
     {
         private readonly WhiteSpaceHelper whiteSpaceHelper = new WhiteSpaceHelper();
 
-        private const string WarningId = "SA1000";
-        private const string MarkerText = "SA1000: Keywords must be spaced correctly";
-        private const string Description = "SA1000: Keywords must be spaced correctly";
-        private const string FixText = "SA1000: Keywords must be spaced correctly";
+        private const string WarningId = "SA1000A-VB-New";
+        private const string MarkerText = "VB - Spacing around keyword \"New\" should be spaced correctly";
+        private const string Description = "VB - Spacing around keyword \"New\" should be spaced correctly";
+        private const string FixText = "VB - Spacing around keyword \"New\" should be spaced correctly";
 
         public override IEnumerable<CodeMarkerGroup> CodeMarkerGroups
         {
             get
             {
-                foreach (var language in new[] { LanguageNames.CSharp, LanguageNames.VisualBasic, LanguageNames.JavaScript })
+                foreach (var language in new[] { LanguageNames.VisualBasic })
                 {
                     yield return CodeMarkerGroup.Define(
                         language,
@@ -75,7 +75,7 @@
                         }
                     }
                 }
-            }          
+            }
         }
 
         private void FixSpacingAroundKeywordVarDec(IVariableDeclaration item)
