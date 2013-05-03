@@ -17,14 +17,21 @@
             return warningCheck;
         }
 
-        public bool CheckWhiteSpaceAroundComment(string s, string itemCheck)
+        public bool CheckWhiteSpaceAroundCharacter(string s, string itemCheck)
         {
-            var warningCheck = NeedWarningWhiteSpaceBeforeComment(s, itemCheck);
+            var warningCheck = NeedWarningWhiteSpaceBeforeCharacter(s, itemCheck);
             if (warningCheck != true)
             {
-               warningCheck = NeedWarningForSingleWhiteSpaceAfterComment(s, itemCheck);
+               warningCheck = NeedWarningForSingleWhiteSpaceAfterCharacter(s, itemCheck);
             }
 
+            return warningCheck;
+        }
+
+        public bool CheckNoWhiteSpaceAroundCharacter(string s, string itemCheck)
+        {           
+            var warningCheck = NeedWarningForSingleWhiteSpaceAfterCharacter(s, itemCheck);
+         
             return warningCheck;
         }
 

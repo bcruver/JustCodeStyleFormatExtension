@@ -14,14 +14,14 @@
             return IsWarningNeededAfter(s, startIndexes, keywordCheck);
         }
 
-        internal bool NeedWarningForSingleWhiteSpaceAfterComment(string s, string commentType)
+        internal bool NeedWarningForSingleWhiteSpaceAfterCharacter(string s, string commentType)
         {
             var startIndexes = s.IndexesOf(commentType);
 
-            return IsWarningNeededAfterComment(s, startIndexes, commentType);
+            return IsWarningNeededAfterCharacter(s, startIndexes, commentType);
         }
 
-        private bool IsWarningNeededAfterComment(string s, IEnumerable<int> startIndexes, string keywordCheck)
+        private bool IsWarningNeededAfterCharacter(string s, IEnumerable<int> startIndexes, string keywordCheck)
         {
             var whiteSpaceCount = 0;
             var characterAfterKeyword = 0;
@@ -105,9 +105,9 @@
             return false;
         }
 
-        internal bool NeedWarningWhiteSpaceBeforeComment(string s, string commentType)
+        internal bool NeedWarningWhiteSpaceBeforeCharacter(string s, string commentType)
         {
-            var isAtBeginningOfRow = IsCommentAtBeginningOfALine(s, commentType);
+            var isAtBeginningOfRow = IsCharacterAtBeginningOfALine(s, commentType);
             if(isAtBeginningOfRow == false)
             {
                 var startIndexes = s.IndexesOf(commentType);
@@ -148,7 +148,6 @@
   
         private bool IsWarningNeededBefore(IEnumerable<int> startIndexes, string s, string keywordCheck)
         {
-            var returnValue = false;
             var whiteSpaceCount = 0;
             char characterAfterKeyword = new char();
 
@@ -175,14 +174,12 @@
 
                                     if (whiteSpaceCount > 1)
                                     {
-                                        returnValue = true;
                                         return true;
                                     }
 
                                     if ((s[i] == '\n' || s[i] == '\r') && whiteSpaceCount < 2)
                                     {
-                                        returnValue = false;
-                                        return true;
+                                        return false;
                                     }
                                 }
                             }
@@ -190,19 +187,16 @@
                             {
                                 if (whiteSpaceCount == 1)
                                 {
-                                    returnValue = false;
-                                    return true;
+                                    return false;
                                 }
                                 else
                                 {
                                     if (characterAfterKeyword == '\n')
                                     {
-                                        returnValue = false;
-                                        return true;
+                                        return false;
                                     }
                                     else
                                     {
-                                        returnValue = true;
                                         return true;
                                     }
                                 }
@@ -243,7 +237,7 @@
             return false;
         }
 
-        internal bool IsCommentAtBeginningOfALine(string s, string commentType)
+        internal bool IsCharacterAtBeginningOfALine(string s, string commentType)
         {
             var stringArray = s.Split('\n');
             var wordsInString = s.IndexesOf(commentType);
@@ -252,6 +246,29 @@
             foreach (var item in stringArray)
             {
                 var stringValue = item.TrimStart();
+                if (stringValue.IndexOf(commentType) > 0)
+                {
+                    return false;
+                }
+
+                counter++;
+                if (counter >= wordsInString.Count())
+                {
+                    break;
+                }
+            }
+            return true;
+        }
+
+        internal bool IsCharacterAtEndOfALine(string s, string commentType)
+        {
+            var stringArray = s.Split('\n');
+            var wordsInString = s.IndexesOf(commentType);
+            var counter = 0;
+
+            foreach (var item in stringArray)
+            {
+                var stringValue = item.TrimEnd();
                 if (stringValue.IndexOf(commentType) > 0)
                 {
                     return false;

@@ -1,6 +1,15 @@
-This is a JustCode extension that provides additional warnings and errors about formatting and styling
+This is a Telerik JustCode extension that provides additional warnings and errors about formatting and styling
 
- Warnings provided by this extension are as follows:
+----------
+
+- Version 1.1.8
+	- Fixed small bug in reworked space checker engine
+
+----------
+
+- Version 1.1.7
+	- Improved warning messages, this should improve speed of locating keyword spacing warnings.
+	- removed stock sample code
 
 ----------
 

@@ -53,7 +53,7 @@
 
         private void CheckForMultiLineComments(string lineCheck, IComment comment)
         {
-            var result = whiteSpaceHelper.CheckWhiteSpaceAroundComment(lineCheck, "/*");
+            var result = whiteSpaceHelper.CheckWhiteSpaceAroundCharacter(lineCheck, "/*");
 
             if (result == true)
             {
@@ -63,7 +63,7 @@
 
         private void CheckForSingleComments(string lineCheck, IComment comment)
         {
-            var result = whiteSpaceHelper.CheckWhiteSpaceAroundComment(lineCheck, "//");
+            var result = whiteSpaceHelper.CheckWhiteSpaceAroundCharacter(lineCheck, "//");
             // var result = this.whiteSpaceHelper.NeedWarningForSingleWhiteSpaceAfterKeyword(lineCheck, "//");
 
             if(result == true)
