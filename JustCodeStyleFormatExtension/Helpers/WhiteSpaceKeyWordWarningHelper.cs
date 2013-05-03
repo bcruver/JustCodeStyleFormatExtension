@@ -23,7 +23,6 @@
 
         private bool IsWarningNeededAfterCharacter(string s, IEnumerable<int> startIndexes, string keywordCheck)
         {
-
             var whiteSpaceCount = 0;
             var characterAfterKeyword = 0;
             var endPoint = s.Length - 1;
