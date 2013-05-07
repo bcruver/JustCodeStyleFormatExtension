@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.Composition;
     using System.Linq;
-    using JustCodeStyleFormatExtension.Extensions;
-    using JustCodeStyleFormatExtension.Helpers;
+    using StyleFormatEngine.Extensions;
+    using StyleFormatEngine.Helpers.Spacing.AddSpacing;
     using Telerik.JustCode.CommonLanguageModel;
 
     /// <summary> 
@@ -17,7 +17,7 @@
     [Export(typeof(ICodeMarkerGroupDefinition))]
     public class KeyWordSpacingForeach : CodeMarkerProviderModuleBase
     {
-        private readonly WhiteSpaceHelper whiteSpaceHelper = new WhiteSpaceHelper();
+        private readonly AddSpaceHelper whiteSpaceHelper = new AddSpaceHelper();
 
         private const string WarningId = "SA1000A-JavaScript-Foreach";
         private const string MarkerText = "JavaScript - Spacing around keyword \"Foreach\" should be spaced correctly";

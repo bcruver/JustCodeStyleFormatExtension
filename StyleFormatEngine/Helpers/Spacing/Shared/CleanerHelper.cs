@@ -1,26 +1,25 @@
-﻿namespace JustCodeStyleFormatExtension.Helpers
+﻿namespace StyleFormatEngine.Helpers.Spacing.Shared
 {
     using System;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using JustCodeStyleFormatExtension.Extensions;
+    using StyleFormatEngine.Extensions;
 
-    public class WhiteSpaceKeyWordCleanerHelper : WhiteSpaceKeyWordWarningHelper
+    public class CleanerHelper : WarningHelper
     {
-       // private readonly WhiteSpaceKeyWordWarningHelper keywordWarning = new WhiteSpaceKeyWordWarningHelper();
 
-        internal string RemoveAddExtraWhiteSpaceBeforeKeyword(string s, string keywordCheck)
+        public virtual string SpacingBeforeKeyword(string s, string keywordCheck)
         {
             string returnString = s;
            
-            returnString = AddSingleWhiteSpaceBeforeKeyword(keywordCheck, returnString);
+            returnString = this.AddSingleSpaceBeforeKeyword(keywordCheck, returnString);
             return returnString;
         }
 
         internal string RemoveAddSingleWhiteSpaceAfterKeyword(string s, string keywordCheck)
         {
             string returnString = s;
-            var warningCheck = NeedWarningForSingleWhiteSpaceAfterKeyword(returnString, keywordCheck);
+            var warningCheck = SingleSpaceAfterKeyword(returnString, keywordCheck);
             if (warningCheck == true)
             {
                 returnString = this.AddSingleWhiteSpaceAfterKeyword(keywordCheck, returnString);
@@ -29,7 +28,7 @@
             return returnString;
         }
 
-        private string AddSingleWhiteSpaceBeforeKeyword(string keywordCheck, string returnString)
+        private string AddSingleSpaceBeforeKeyword(string keywordCheck, string returnString)
         {
             var startPointIndex = returnString.IndexesOf(keywordCheck);
 
@@ -53,9 +52,6 @@
             }
             return returnString;
         }
-
-
-
 
         public string RemoveAllDoubleSpacesOnString(string s)
         {

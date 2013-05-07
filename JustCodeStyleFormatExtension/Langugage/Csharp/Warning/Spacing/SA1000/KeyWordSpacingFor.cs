@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.ComponentModel.Composition;
     using System.Linq;
-    using JustCodeStyleFormatExtension.Extensions;
-    using JustCodeStyleFormatExtension.Helpers;
+    using StyleFormatEngine.Extensions;
+    using StyleFormatEngine.Helpers.Spacing.AddSpacing;
     using Telerik.JustCode.CommonLanguageModel;
 
     /// <summary> 
@@ -17,7 +17,7 @@
     [Export(typeof(ICodeMarkerGroupDefinition))]
     public class KeyWordSpacingFor : CodeMarkerProviderModuleBase
     {
-        private readonly WhiteSpaceHelper whiteSpaceHelper = new WhiteSpaceHelper();
+        private readonly AddSpaceHelper whiteSpaceHelper = new AddSpaceHelper();
 
         private const string WarningId = "SA1000A-CSharp-For";
         private const string MarkerText = "CSharp - Spacing around keyword \"For\" should be spaced correctly";

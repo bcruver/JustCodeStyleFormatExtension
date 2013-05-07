@@ -1,4 +1,4 @@
-﻿namespace JustCodeStyleFormatExtension.Helpers.Interface
+﻿namespace StyleFormatEngine.Helpers.Interface
 {
     using System;
     using System.Linq;
@@ -7,7 +7,7 @@
     {
         bool CheckWhiteSpaceAroundKeyword(string s, string keywordCheck);
 
-        bool CheckWhiteSpaceAroundComment(string s, string commentType);
+        bool CheckWhiteSpaceAroundCharacter(string s, string commentType);        
 
         string RemoveWhiteSpaceAroundKeyword(string s, string keywordCheck);
 

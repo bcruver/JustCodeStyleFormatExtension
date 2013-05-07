@@ -58,19 +58,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Extensions\IndexExtensions.cs" />
-    <Compile Include="FindUsagesExample.cs" />
-    <Compile Include="Helpers\Interface\ISpacingHelper.cs" />
-    <Compile Include="Helpers\VarableListHelper.cs" />
-    <Compile Include="Helpers\WhiteSpaceHelper.cs" />
-    <Compile Include="Helpers\WhiteSpaceKeyWordCleanerHelper.cs" />
-    <Compile Include="Helpers\WhiteSpaceKeyWordWarningHelper.cs" />
     <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\KeyWordSpacingCatch.cs" />
     <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\KeyWordSpacingFor.cs" />
     <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\KeyWordSpacingForeach.cs" />
     <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\KeyWordSpacingIn.cs" />
     <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\KeyWordSpacingNew.cs" />
     <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\KeyWordSpacingSwitch.cs" />
+    <Compile Include="Langugage\Csharp\Warning\Spacing\SA1008\OpeningParenthesisSpacing.cs" />
     <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingCatch.cs" />
     <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingFor.cs" />
     <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingForeach.cs" />
@@ -78,6 +72,7 @@
     <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingNew.cs" />
     <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingSwitch.cs" />
     <Compile Include="Langugage\JavaScript\Spacing\SA1005\SingleSpaceAfterComment.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1008\OpeningParenthesisSpacing.cs" />
     <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingNew.cs" />
     <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingCatch.cs" />
     <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingSwitch.cs" />
@@ -86,9 +81,12 @@
     <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingFor.cs" />
     <Compile Include="Langugage\VbNet\Spacing\SA1005\SingleSpaceAfterComment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RefactoringExample.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Refactoring\Ordering\MoveUsingDirectives.cs" />
-    <Compile Include="WarningExample.cs" />
     <Compile Include="Langugage\Csharp\Warning\Ordering\SA1200UsingDirectives.cs" />
     <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\SA1000KeyWordSpacing.cs" />
     <Compile Include="Langugage\Csharp\Warning\Spacing\SA1000\SA1000KeyWordSpacingForAndForEach.cs" />
@@ -96,6 +94,9 @@
     <Compile Include="Langugage\Csharp\Warning\Spacing\SA1005\SingleSpaceAfterComment.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Release\StyleFormatEngine.dll">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <Content Include="MS-PL.rtf">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -162,6 +163,19 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Rules\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StyleFormatEngine\StyleFormatEngine.csproj">
+      <Project>{21478fc6-1bcc-4396-87cf-1765d0ba178a}</Project>
+      <Name>StyleFormatEngine</Name>
+      <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup</IncludeOutputGroupsInVSIX>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

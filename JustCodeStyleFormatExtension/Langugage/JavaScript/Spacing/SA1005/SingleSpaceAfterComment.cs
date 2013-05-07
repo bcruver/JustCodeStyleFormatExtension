@@ -8,14 +8,14 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.Composition;
-    using JustCodeStyleFormatExtension.Helpers;
+    using StyleFormatEngine.Helpers.Spacing.AddSpacing;
     using Telerik.JustCode.CommonLanguageModel;
 
     [Export(typeof(IEngineModule))]
     [Export(typeof(ICodeMarkerGroupDefinition))]
     public class SingleSpaceAfterComment : CodeMarkerProviderModuleBase
     {
-        private readonly WhiteSpaceHelper whiteSpaceHelper = new WhiteSpaceHelper();
+        private readonly AddSpaceHelper whiteSpaceHelper = new AddSpaceHelper();
 
         private const string WarningId = "SA1005-1-JavaScript";
         private const string MarkerText = "JavaScript - Comments that start with /* should begin with a single space";
@@ -53,7 +53,7 @@
 
         private void CheckForMultiLineComments(string lineCheck, IComment comment)
         {
-            var result = whiteSpaceHelper.CheckWhiteSpaceAroundComment(lineCheck, "/*");
+            var result = whiteSpaceHelper.CheckWhiteSpaceAroundCharacter(lineCheck, "/*");
 
             if (result == true)
             {
@@ -63,7 +63,7 @@
 
         private void CheckForSingleComments(string lineCheck, IComment comment)
         {
-            var result = whiteSpaceHelper.CheckWhiteSpaceAroundComment(lineCheck, "//");
+            var result = whiteSpaceHelper.CheckWhiteSpaceAroundCharacter(lineCheck, "//");
             // var result = this.whiteSpaceHelper.NeedWarningForSingleWhiteSpaceAfterKeyword(lineCheck, "//");
 
             if(result == true)
