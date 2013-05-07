@@ -1,6 +1,14 @@
 This is a Telerik JustCode extension that provides additional warnings and errors about formatting and styling
 
 ----------
+- Version 1.2.0
+	- Enhancements on rules engine to streamline checks
+	- Fixed bug in JavaScript comments rules
+	- Changed structure of extension to enhance the ability to conduct unit test.
+
+Note: Leaving a project that using VB.NET so besides a few test I will have limited viability. Any errors or enhancement request can be sent to me. 
+
+----------
 
 - Version 1.1.8
 	- Fixed small bug in reworked space checker engine

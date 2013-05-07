@@ -72,6 +72,7 @@
     <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingNew.cs" />
     <Compile Include="Langugage\JavaScript\Spacing\SA1000\KeyWordSpacingSwitch.cs" />
     <Compile Include="Langugage\JavaScript\Spacing\SA1005\SingleSpaceAfterComment.cs" />
+    <Compile Include="Langugage\JavaScript\Spacing\SA1008\OpeningParenthesisSpacing.cs" />
     <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingNew.cs" />
     <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingCatch.cs" />
     <Compile Include="Langugage\VbNet\Spacing\SA1000\KeyWordSpacingSwitch.cs" />
