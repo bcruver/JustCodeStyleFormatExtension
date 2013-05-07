@@ -1,17 +1,17 @@
-﻿namespace JustCodeStyleFormatExtension.Helpers
+﻿namespace StyleFormatEngine.Helpers.Spacing.AddSpacing
 {
     using System;
     using System.Linq;
-    using JustCodeStyleFormatExtension.Helpers.Interface;
+    using StyleFormatEngine.Helpers.Spacing.Shared;
 
-    public class WhiteSpaceHelper : WhiteSpaceKeyWordCleanerHelper, ISpacingHelper
+    public class AddSpaceHelper : CleanerHelper, StyleFormatEngine.Helpers.Interface.ISpacingHelper
     {
         public bool CheckWhiteSpaceAroundKeyword(string s, string itemCheck)
         {
             var warningCheck = NeedWarningWhiteSpaceBeforeKeyword(s, itemCheck);
             if (warningCheck != true)
             {
-                warningCheck = NeedWarningForSingleWhiteSpaceAfterKeyword(s, itemCheck);
+                warningCheck = SingleSpaceAfterKeyword(s, itemCheck);
             }
 
             return warningCheck;
@@ -29,10 +29,9 @@
         }
 
         public bool CheckNoWhiteSpaceAroundCharacter(string s, string itemCheck)
-        {           
-            var warningCheck = NeedWarningForSingleWhiteSpaceAfterCharacter(s, itemCheck);
-         
-            return warningCheck;
+        {
+            var returnValue = NeedWarningForSingleWhiteSpaceAfterCharacter(s, itemCheck);
+            return returnValue ? false : returnValue;
         }
 
         public string RemoveWhiteSpaceAroundKeyword(string s, string itemCheck)
@@ -42,10 +41,10 @@
             var warningCheck = NeedWarningWhiteSpaceBeforeKeyword(returnString, itemCheck);
             if (warningCheck == true)
             {
-                returnString = RemoveAddExtraWhiteSpaceBeforeKeyword(returnString, itemCheck);
+                returnString = SpacingBeforeKeyword(returnString, itemCheck);
             }
 
-            warningCheck = NeedWarningForSingleWhiteSpaceAfterKeyword(returnString, itemCheck);
+            warningCheck = SingleSpaceAfterKeyword(returnString, itemCheck);
 
             if (warningCheck == true)
             {

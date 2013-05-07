@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.Composition;
-    using JustCodeStyleFormatExtension.Helpers;
+    using StyleFormatEngine.Helpers.Spacing.AddSpacing;
     using Telerik.JustCode.CommonLanguageModel;
 
     /// <summary> 
@@ -15,7 +15,7 @@
     [Export(typeof(ICodeMarkerGroupDefinition))]
     public class KeyWordSpacingNew : CodeMarkerProviderModuleBase
     {
-        private readonly WhiteSpaceHelper whiteSpaceHelper = new WhiteSpaceHelper();
+        private readonly AddSpaceHelper whiteSpaceHelper = new AddSpaceHelper();
 
         private const string WarningId = "SA1000A-VB-New";
         private const string MarkerText = "VB - Spacing around keyword \"New\" should be spaced correctly";

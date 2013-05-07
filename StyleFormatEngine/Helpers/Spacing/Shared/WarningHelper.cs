@@ -1,13 +1,13 @@
-﻿namespace JustCodeStyleFormatExtension.Helpers
+﻿namespace StyleFormatEngine.Helpers.Spacing.Shared
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using JustCodeStyleFormatExtension.Extensions;
+    using StyleFormatEngine.Extensions;
 
-    public class WhiteSpaceKeyWordWarningHelper
+    public class WarningHelper: Library
     {
-        internal bool NeedWarningForSingleWhiteSpaceAfterKeyword(string s, string keywordCheck)
+        internal bool SingleSpaceAfterKeyword(string s, string keywordCheck)
         {
             var startIndexes = s.WholeWordIndexesOf(keywordCheck);
 
@@ -18,53 +18,26 @@
         {
             var startIndexes = s.IndexesOf(commentType);
 
-            return IsWarningNeededAfterCharacter(s, startIndexes, commentType);
+            return IsWarningNeededAfter(s, startIndexes, commentType);
         }
 
-        private bool IsWarningNeededAfterCharacter(string s, IEnumerable<int> startIndexes, string keywordCheck)
-        {
-            var whiteSpaceCount = 0;
-            var characterAfterKeyword = 0;
-            var endPoint = s.Length - 1;
+        // public bool IsWarningNeededAfterForNoSpace(string s, IEnumerable<int> startIndexes, string keywordCheck)
+        // {
+        //    var returnValue = IsWarningNeededAfter(s, startIndexes, keywordCheck);
+        //    return returnValue ? false : returnValue;
+        // }
 
-            foreach (var startPoint in startIndexes)
-            {
-                if (startPoint < endPoint)
-                {
-                    for (int i = startPoint + keywordCheck.Length; i < endPoint; i++)
-                    {
-                        if (characterAfterKeyword == 0)
-                        {
-                            if (!char.IsWhiteSpace(s[i]))
-                            {
-                                characterAfterKeyword++;
-                            }
-                            else
-                            {
-                                whiteSpaceCount++;
-                                if (whiteSpaceCount > 1)
-                                {
-                                    return false;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            return (whiteSpaceCount > 0) ? false : true;
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-  
-        private bool IsWarningNeededAfter(string s, IEnumerable<int> startIndexes, string keywordCheck)
+        // returns true is there is no whitespace after keyword
+        public bool IsWarningNeededAfter(string s, IEnumerable<int> startIndexes, string keywordCheck)
         {
             var whiteSpaceCount = 0;
             var characterAfterKeyword = 0;
             char nextCharacter = char.MinValue;
+            var keywordBuild = keywordCheck;
             var endPoint = s.Length - 1;
-            var exception = "new[";
+            // var exception = new List<string>();
+            // exception.Add("new[ ");
+            // exception.Add("/// ");
 
             foreach (var startPoint in startIndexes)
             {
@@ -74,28 +47,38 @@
                     {
                         for (int i = startPoint + keywordCheck.Length; i < endPoint; i++)
                         {
-                            if (characterAfterKeyword == 0)
+                            if (characterAfterKeyword < 3)
                             {
                                 if (!char.IsWhiteSpace(s[i]))
                                 {
                                     characterAfterKeyword++;
-                                    nextCharacter = s[i];
+                                    keywordBuild = s[i].ToString();
+                                    nextCharacter = s[i + 1];
                                 }
                                 else
                                 {
                                     whiteSpaceCount++;
                                     if (whiteSpaceCount > 1)
                                     {
+                                        if (CommentKeys.Contains(keywordCheck))
+                                        {
+                                            return false;
+                                        }
+                                        
                                         return true;
                                     }
                                 }
                             }
                             else
                             {
-                                if (keywordCheck + nextCharacter.ToString() == exception)
+                                foreach (var item in Exceptions)
                                 {
-                                    return false;
+                                    if (keywordBuild + nextCharacter.ToString() == item)
+                                    {
+                                        return false;
+                                    }
                                 }
+                                
                                 return (whiteSpaceCount == 1) ? false : true;
                             }
                         }
@@ -108,7 +91,7 @@
         internal bool NeedWarningWhiteSpaceBeforeCharacter(string s, string commentType)
         {
             var isAtBeginningOfRow = IsCharacterAtBeginningOfALine(s, commentType);
-            if(isAtBeginningOfRow == false)
+            if (isAtBeginningOfRow == false)
             {
                 var startIndexes = s.IndexesOf(commentType);
                 return IsWarningNeededBefore(startIndexes, s, commentType);
@@ -133,14 +116,17 @@
         // Exception check when keywords are in quotes like "for"
         private bool IsKeywordInQuotes(string s, string keywordCheck, int startPoint)
         {
-            if (s.Substring(startPoint - 1, startPoint) == "\"")
+            if (startPoint > 0)
             {
-                return true;
-            }
+                if (s.Substring(startPoint - 1, startPoint) == "\"")
+                {
+                    return true;
+                }
 
-            if (s.Substring(startPoint, (startPoint + keywordCheck.Length + 1)) == "\"")
-            {
-                return true;
+                if (s.Substring(startPoint, (startPoint + keywordCheck.Length + 1)) == "\"")
+                {
+                    return true;
+                }
             }
 
             return false;

@@ -8,14 +8,14 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.Composition;
-    using JustCodeStyleFormatExtension.Helpers;
+    using StyleFormatEngine.Helpers.Spacing.AddSpacing;
     using Telerik.JustCode.CommonLanguageModel;
 
     [Export(typeof(IEngineModule))]
     [Export(typeof(ICodeMarkerGroupDefinition))]
     public class SingleSpaceAfterComment : CodeMarkerProviderModuleBase
     {
-        private readonly WhiteSpaceHelper whiteSpaceHelper = new WhiteSpaceHelper();
+        private readonly AddSpaceHelper whiteSpaceHelper = new AddSpaceHelper();
 
         private const string WarningId = "SA1005-VBNET";
         private const string MarkerText = "VBNET - Comments that start with ' should begin with a single space";

@@ -1,4 +1,4 @@
-﻿namespace JustCodeStyleFormatExtension.Extensions
+﻿namespace StyleFormatEngine.Extensions
 {
     using System;
     using System.Collections.Generic;
@@ -7,18 +7,18 @@
 
     public static class IndexExtensions
     {
-        public static IEnumerable<int> IndexesOf(this string haystack, string needle)
+        public static IEnumerable<int> IndexesOf(this string stringCheck, string item)
         {
             int lastIndex = 0;
             while (true)
             {
-                int index = haystack.IndexOf(needle, lastIndex);
+                int index = stringCheck.IndexOf(item, lastIndex);
                 if (index == -1)
                 {
                     yield break;
                 }
                 yield return index;
-                lastIndex = index + needle.Length;
+                lastIndex = index + item.Length;
             }
         }
 
