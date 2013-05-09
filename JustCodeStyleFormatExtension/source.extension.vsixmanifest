@@ -3,7 +3,7 @@
   <Identifier Id="JustCodeStyleFormatExtension.Microsoft.47b317b2-a398-4cee-8100-0d22d2887428">
     <Name>JustCodeStyleFormatExtension</Name>
     <Author>Chad England</Author>
-    <Version>1.2.0</Version>
+    <Version>1.2.1</Version>
     <Description xml:space="preserve">This is my attempt to get Telerik JustCode to enforce style and formatting guidelines. </Description>
     <Locale>1033</Locale>
     <License>MS-PL.rtf</License>
