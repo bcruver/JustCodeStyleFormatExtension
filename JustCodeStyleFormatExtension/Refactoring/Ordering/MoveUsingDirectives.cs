@@ -4,7 +4,7 @@
     using System.ComponentModel.Composition;
     using System.Linq;
     using Telerik.JustCode.CommonLanguageModel;
-    
+
     [Export(typeof(IEngineModule))]
     [Export(typeof(ICommandDefinition))]
     public class MoveUsingDirectives : CommandModuleBase
@@ -20,7 +20,7 @@
             }
 
             IUsingDirectiveSection section = fileModel.InnerMost<IUsingDirectiveSection>(selection);
-           
+
             return section.Exists && !section.Enclosing<INamespaceDeclaration>().Exists;
         }
 
@@ -41,10 +41,10 @@
                 HashSet<IUsingDirectiveSection> sections = new HashSet<IUsingDirectiveSection>();
                 foreach (IUsingDirectiveSection section in fileModel.All<IUsingDirectiveSection>())
                 {
-                    INamespaceDeclaration _namespace = section.Enclosing<INamespaceDeclaration>();
+                    INamespaceDeclaration nameSpaceItems = section.Enclosing<INamespaceDeclaration>();
 
                     //we are interested only in top level namespaces
-                    if (_namespace.Exists && !_namespace.Enclosing<INamespaceDeclaration>().Exists)
+                    if (nameSpaceItems.Exists && !nameSpaceItems.Enclosing<INamespaceDeclaration>().Exists)
                     {
                         sections.Add(section);
                     }

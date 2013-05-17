@@ -1,6 +1,17 @@
 This is a Telerik JustCode extension that provides additional warnings and errors about formatting and styling
 
 ----------
+- Version 1.2.2
+	- Fixed a bug when keyword is in quotes
+	- improved checker around new keywords
+	- enhanced algorithm to check if keyword is in quotes
+	- added new unit test to source
+
+----------
+- Version 1.2.1
+	- Fixed an index out of range bug
+
+----------
 - Version 1.2.0
 	- Enhancements on rules engine to streamline checks
 	- Fixed bug in JavaScript comments rules

@@ -79,7 +79,7 @@
 
         private void FixSpacingForEach(IForEachStatement item)
         {
-            
+
         }
 
         private void FixSpacingFor(IForStatement item)
@@ -89,16 +89,16 @@
 
 
 
-        private void AddSpaceAfterSingleComment(IComment comment)
-        {
-            comment.Text = this.whiteSpaceHelper.RemoveWhiteSpaceAroundKeyword(comment.Text, "//");
-        }
+        /* private void AddSpaceAfterSingleComment(IComment comment)
+         {
+             comment.Text = this.whiteSpaceHelper.RemoveWhiteSpaceAroundKeyword(comment.Text, "//");
+         }
 
-        private void AddSpaceAfterMultiComments(IComment comment)
-        {
-            comment.Text = this.whiteSpaceHelper.RemoveWhiteSpaceAroundKeyword(comment.Text, "/*");
-        }
-
+         private void AddSpaceAfterMultiComments(IComment comment)
+         {
+             comment.Text = this.whiteSpaceHelper.RemoveWhiteSpaceAroundKeyword(comment.Text, "/*");
+         }
+         */
 
     }
 }

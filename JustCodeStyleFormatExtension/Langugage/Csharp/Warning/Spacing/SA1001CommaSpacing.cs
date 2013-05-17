@@ -1,9 +1,9 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.ComponentModel.Composition;
-//using Telerik.JustCode.CommonLanguageModel;
+﻿// using System;
+// using System.Collections.Generic;
+// using System.ComponentModel.Composition;
+// using Telerik.JustCode.CommonLanguageModel;
 
-//namespace JustCodeStyleFormatExtension.Warning.Spacing
+// namespace JustCodeStyleFormatExtension.Warning.Spacing
 //{
 //    /// <summary> 
 //    /// 

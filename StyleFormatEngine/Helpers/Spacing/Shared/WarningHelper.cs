@@ -5,7 +5,7 @@
     using System.Linq;
     using StyleFormatEngine.Extensions;
 
-    public class WarningHelper: Library
+    public class WarningHelper : Library
     {
         internal bool SingleSpaceAfterKeyword(string s, string keywordCheck)
         {
@@ -21,71 +21,76 @@
             return IsWarningNeededAfter(s, startIndexes, commentType);
         }
 
-        // public bool IsWarningNeededAfterForNoSpace(string s, IEnumerable<int> startIndexes, string keywordCheck)
-        // {
-        //    var returnValue = IsWarningNeededAfter(s, startIndexes, keywordCheck);
-        //    return returnValue ? false : returnValue;
-        // }
-
         // returns true is there is no whitespace after keyword
         public bool IsWarningNeededAfter(string s, IEnumerable<int> startIndexes, string keywordCheck)
         {
-            var whiteSpaceCount = 0;
-            var characterAfterKeyword = 0;
-            char nextCharacter = char.MinValue;
-            var keywordBuild = keywordCheck;
-            var endPoint = s.Length - 1;
-            // var exception = new List<string>();
-            // exception.Add("new[ ");
-            // exception.Add("/// ");
-
-            foreach (var startPoint in startIndexes)
+            try
             {
-                if (startPoint < endPoint)
+                var whiteSpaceCount = 0;
+                var characterAfterKeyword = 0;
+                char nextCharacter = char.MinValue;
+                var keywordBuild = keywordCheck;
+                var endPoint = s.Length - 1;
+                var wasPreviousCharacterSpace = false;
+
+                foreach (var startPoint in startIndexes)
                 {
-                    if (IsKeywordInQuotes(s, keywordCheck, startPoint) == false)
+                    if (startPoint < endPoint)
                     {
-                        for (int i = startPoint + keywordCheck.Length; i < endPoint; i++)
+                        if (IsKeywordInQuotes(s) == false)
                         {
-                            if (characterAfterKeyword < 3)
+                            for (int i = startPoint + keywordCheck.Length; i < endPoint; i++)
                             {
-                                if (!char.IsWhiteSpace(s[i]))
+                                if (characterAfterKeyword < 2)
                                 {
-                                    characterAfterKeyword++;
-                                    keywordBuild = s[i].ToString();
-                                    nextCharacter = s[i + 1];
+                                    if (!char.IsWhiteSpace(s[i]))
+                                    {
+                                        characterAfterKeyword++;
+                                        keywordBuild = s[i].ToString();
+                                        nextCharacter = s[i + 1];
+                                    }
+                                    else
+                                    {
+                                        whiteSpaceCount++;
+                                        if (whiteSpaceCount > 1)
+                                        {
+                                            if (CommentKeys.Contains(keywordCheck))
+                                            {
+                                                return false;
+                                            }
+
+                                            if (wasPreviousCharacterSpace)
+                                            {
+                                                return false;
+                                            }
+
+                                            return true;
+                                        }
+                                        wasPreviousCharacterSpace = true;
+                                    }
                                 }
                                 else
                                 {
-                                    whiteSpaceCount++;
-                                    if (whiteSpaceCount > 1)
+                                    foreach (var item in Exceptions)
                                     {
-                                        if (CommentKeys.Contains(keywordCheck))
+                                        if (keywordBuild + nextCharacter.ToString() == item)
                                         {
                                             return false;
                                         }
-                                        
-                                        return true;
                                     }
+
+                                    return (whiteSpaceCount == 1) ? false : true;
                                 }
-                            }
-                            else
-                            {
-                                foreach (var item in Exceptions)
-                                {
-                                    if (keywordBuild + nextCharacter.ToString() == item)
-                                    {
-                                        return false;
-                                    }
-                                }
-                                
-                                return (whiteSpaceCount == 1) ? false : true;
                             }
                         }
                     }
                 }
+                return false;
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         internal bool NeedWarningWhiteSpaceBeforeCharacter(string s, string commentType)
@@ -114,84 +119,91 @@
         }
 
         // Exception check when keywords are in quotes like "for"
-        private bool IsKeywordInQuotes(string s, string keywordCheck, int startPoint)
+        private bool IsKeywordInQuotes(string s)
         {
-            if (startPoint > 0)
+            try
             {
-                if (s.Substring(startPoint - 1, startPoint) == "\"")
+                if (s.Contains("\""))
                 {
                     return true;
-                }
+                }               
 
-                if (s.Substring(startPoint, (startPoint + keywordCheck.Length + 1)) == "\"")
-                {
-                    return true;
-                }
+                return false;
             }
+            catch (Exception)
+            {
 
-            return false;
+                return false;
+            }
         }
-  
+
         private bool IsWarningNeededBefore(IEnumerable<int> startIndexes, string s, string keywordCheck)
         {
-            var whiteSpaceCount = 0;
-            char characterAfterKeyword = new char();
-
-            foreach (var startPoint in startIndexes)
+            try
             {
-                if (startPoint > 0)
+                var whiteSpaceCount = 0;
+                char characterAfterKeyword = new char();
+
+                foreach (var startPoint in startIndexes)
                 {
-                    if (IsKeywordInQuotes(s, keywordCheck, startPoint) == false)
+                    if (startPoint > 0)
                     {
-                        for (int i = startPoint - 1; i > 0; i--)
+                        if (IsKeywordInQuotes(s) == false)
                         {
-                            if (characterAfterKeyword == '\0')
+                            for (int i = startPoint - 1; i > 0; i--)
                             {
-                                if (!char.IsWhiteSpace(s[i]))
+                                if (characterAfterKeyword == '\0')
                                 {
-                                    characterAfterKeyword = s[i];
+                                    if (!char.IsWhiteSpace(s[i]))
+                                    {
+                                        characterAfterKeyword = s[i];
+                                    }
+                                    else
+                                    {
+                                        if (s[i] != '\t' && s[i] != '\n' && s[i] != '\r')
+                                        {
+                                            whiteSpaceCount++;
+                                        }
+
+                                        if (whiteSpaceCount > 1)
+                                        {
+                                            return true;
+                                        }
+
+                                        if ((s[i] == '\n' || s[i] == '\r') && whiteSpaceCount < 2)
+                                        {
+                                            return false;
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    if (s[i] != '\t' && s[i] != '\n' && s[i] != '\r')
-                                    {
-                                        whiteSpaceCount++;
-                                    }
-
-                                    if (whiteSpaceCount > 1)
-                                    {
-                                        return true;
-                                    }
-
-                                    if ((s[i] == '\n' || s[i] == '\r') && whiteSpaceCount < 2)
-                                    {
-                                        return false;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if (whiteSpaceCount == 1)
-                                {
-                                    return false;
-                                }
-                                else
-                                {
-                                    if (characterAfterKeyword == '\n')
+                                    if (whiteSpaceCount == 1)
                                     {
                                         return false;
                                     }
                                     else
                                     {
-                                        return true;
+                                        if (characterAfterKeyword == '\n')
+                                        {
+                                            return false;
+                                        }
+                                        else
+                                        {
+                                            return true;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
+                return false;
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         internal bool IsKeywordAtTheBeginningOfALine(string s, string keyworkCheck)
@@ -212,7 +224,7 @@
             }
             return true;
         }
-  
+
         private bool IsCounterGreaterThenArray(IEnumerable<int> wordsInString, int counter)
         {
             counter++;
