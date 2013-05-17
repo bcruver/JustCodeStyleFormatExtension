@@ -27,14 +27,14 @@
             startIndexes.Add(0);
             string keywordCheck = "//";
 
-            Assert.False(this.WarningHelper.IsWarningNeededAfter(s, startIndexes, keywordCheck));            
+            Assert.False(this.WarningHelper.IsWarningNeededAfter(s, startIndexes, keywordCheck));
         }
 
         [Fact]
         public void CommentCSharpDoubleSlashNoWarningNeeedTest()
         {
             string s = "// lakjdkfjasdf";
-            List<int> startIndexes = new List<int>(){0};
+            List<int> startIndexes = new List<int>() { 0 };
             string keywordCheck = "//";
 
             Assert.False(this.WarningHelper.IsWarningNeededAfter(s, startIndexes, keywordCheck));
@@ -44,7 +44,7 @@
         public void CommentCSharpDoubleSlashWarningNeeedTest()
         {
             string s = "//lakjdkfjasdf";
-            List<int> startIndexes = new List<int>(){0};
+            List<int> startIndexes = new List<int>() { 0 };
             string keywordCheck = "//";
 
             Assert.True(this.WarningHelper.IsWarningNeededAfter(s, startIndexes, keywordCheck));
@@ -62,8 +62,53 @@
 
         #endregion
 
-        #region Keyword
-       // [Fact]
+        #region Keyword New
+
+        [Fact]
+        public void KeywordNewEndOfLineTest()
+        {
+            // Arrange
+            string s = "var data = new";
+            List<int> startIndexes = new List<int>() { 10 };
+            string keywordCheck = "new";
+
+            // Act
+            var returnValue = this.WarningHelper.IsWarningNeededAfter(s, startIndexes, keywordCheck);
+
+            // Assert
+            Assert.False(returnValue);
+        }
+
+        [Fact]
+        public void KeywordNewSpaceBracketLineTest()
+        {
+            // Arrange
+            string s = " new { Key = 'data', Address = mediaItem.Callback}";
+            List<int> startIndexes = new List<int>() { 1 };
+            string keywordCheck = "new";
+
+            // Act
+            var returnValue = this.WarningHelper.IsWarningNeededAfter(s, startIndexes, keywordCheck);
+
+            // Assert
+            Assert.False(returnValue);
+        }
+
+        [Fact]
+        public void KeywordNewSpaceInQuotesTest()
+        {
+            // Arrange
+            string s = "string keywordCheck = \"new\"";
+            List<int> startIndexes = new List<int>() { 1 };
+            string keywordCheck = "new";
+
+            // Act
+            var returnValue = this.WarningHelper.IsWarningNeededAfter(s, startIndexes, keywordCheck);
+
+            // Assert
+            Assert.False(returnValue);
+        }
+        // [Fact]
         // public void CommentParenthiseWarningNeeedTest()
         //{
         //    string s = "//incorrect\r\n \r\n for(int i = 0; i < 10; i++)\r\n {\r\n\t\t\tList<string> keywordSearch = new List<string> { \"for\", \"foreach\", \"in\" };\r\n var test = i;\r\n }";
@@ -72,6 +117,8 @@
 
         //    Assert.False(this.WarningHelper.IsWarningNeededAfterForNoSpace(s, startIndexes, keywordCheck));
         //}
+
+
 
 
         #endregion

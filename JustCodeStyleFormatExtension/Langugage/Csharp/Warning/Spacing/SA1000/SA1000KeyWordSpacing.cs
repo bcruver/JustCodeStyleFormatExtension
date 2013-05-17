@@ -1,5 +1,5 @@
-﻿//namespace JustCodeStyleFormatExtension.Langugage.Csharp.Warning.Spacing.SA1000
-//{
+﻿// namespace JustCodeStyleFormatExtension.Langugage.Csharp.Warning.Spacing.SA1000
+// {
 //    using System;
 //    using System.Collections.Generic;
 //    using System.ComponentModel.Composition;
@@ -101,4 +101,4 @@
 //            return whiteSpaceHelper.CheckWhiteSpaceAroundKeyword(item, key);
 //        }
 //    }
-//}
+// }

@@ -5,7 +5,7 @@
     using System.Linq;
     using StyleFormatEngine.Extensions;
 
-    public class WarningHelper: Library
+    public class WarningHelper : Library
     {
         internal bool SingleSpaceAfterKeyword(string s, string keywordCheck)
         {
@@ -31,16 +31,17 @@
                 char nextCharacter = char.MinValue;
                 var keywordBuild = keywordCheck;
                 var endPoint = s.Length - 1;
+                var wasPreviousCharacterSpace = false;
 
                 foreach (var startPoint in startIndexes)
                 {
                     if (startPoint < endPoint)
                     {
-                        if (IsKeywordInQuotes(s, keywordCheck, startPoint) == false)
+                        if (IsKeywordInQuotes(s) == false)
                         {
                             for (int i = startPoint + keywordCheck.Length; i < endPoint; i++)
                             {
-                                if (characterAfterKeyword < 3)
+                                if (characterAfterKeyword < 2)
                                 {
                                     if (!char.IsWhiteSpace(s[i]))
                                     {
@@ -57,9 +58,15 @@
                                             {
                                                 return false;
                                             }
-                                        
+
+                                            if (wasPreviousCharacterSpace)
+                                            {
+                                                return false;
+                                            }
+
                                             return true;
                                         }
+                                        wasPreviousCharacterSpace = true;
                                     }
                                 }
                                 else
@@ -71,7 +78,7 @@
                                             return false;
                                         }
                                     }
-                                
+
                                     return (whiteSpaceCount == 1) ? false : true;
                                 }
                             }
@@ -112,26 +119,16 @@
         }
 
         // Exception check when keywords are in quotes like "for"
-        private bool IsKeywordInQuotes(string s, string keywordCheck, int startPoint)
+        private bool IsKeywordInQuotes(string s)
         {
             try
             {
-
-            
-            if (startPoint > 0)
-            {
-                if (s.Substring(startPoint - 1, startPoint) == "\"")
+                if (s.Contains("\""))
                 {
                     return true;
-                }
+                }               
 
-                if (s.Substring(startPoint, (startPoint + keywordCheck.Length + 1)) == "\"")
-                {
-                    return true;
-                }
-            }
-
-            return false;
+                return false;
             }
             catch (Exception)
             {
@@ -139,7 +136,7 @@
                 return false;
             }
         }
-  
+
         private bool IsWarningNeededBefore(IEnumerable<int> startIndexes, string s, string keywordCheck)
         {
             try
@@ -151,7 +148,7 @@
                 {
                     if (startPoint > 0)
                     {
-                        if (IsKeywordInQuotes(s, keywordCheck, startPoint) == false)
+                        if (IsKeywordInQuotes(s) == false)
                         {
                             for (int i = startPoint - 1; i > 0; i--)
                             {
@@ -227,7 +224,7 @@
             }
             return true;
         }
-  
+
         private bool IsCounterGreaterThenArray(IEnumerable<int> wordsInString, int counter)
         {
             counter++;
