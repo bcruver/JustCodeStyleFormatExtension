@@ -1,12 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustCodeStyleFormatExtension", "JustCodeStyleFormatExtension\JustCodeStyleFormatExtension.csproj", "{5B1882DE-4FFB-46CC-8A5A-953EC4200C2E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleFormatEngine", "StyleFormatEngine\StyleFormatEngine.csproj", "{21478FC6-1BCC-4396-87CF-1765D0BA178A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleFormatEngineTest", "StyleFormatEngineTest\StyleFormatEngineTest.csproj", "{912403C9-5F87-43ED-8E39-293B58E60F1F}"
-EndProject
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2071A7A7-1688-4411-8AC9-D0038709BB84}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -16,6 +12,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2071A7
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{5974A882-3D65-4FE0-9863-F21CA798A6FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustCodeStyleFormatExtension", "JustCodeStyleFormatExtension\JustCodeStyleFormatExtension.csproj", "{5B1882DE-4FFB-46CC-8A5A-953EC4200C2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleFormatEngine", "StyleFormatEngine\StyleFormatEngine.csproj", "{21478FC6-1BCC-4396-87CF-1765D0BA178A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleFormatEngineTest", "StyleFormatEngineTest\StyleFormatEngineTest.csproj", "{912403C9-5F87-43ED-8E39-293B58E60F1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
